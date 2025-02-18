@@ -1,0 +1,91 @@
+/* check.css */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f0f0f0;
+}
+
+.controls {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+input, button {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.drawn-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.number-chip {
+    background: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.number-chip:hover {
+    background: #ffcdd2;
+}
+
+.winners {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tour-winner {
+    margin: 10px 0;
+    padding: 10px;
+    border-left: 3px solid #c62828;
+}
+
+.sample-ticket {
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.sample-ticket table {
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.sample-ticket td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 12px;
+}
+
+button.random {
+    background: #2e7d32;
+}
+
+button.red {
+    background: #c62828;
+}

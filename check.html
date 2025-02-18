@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка лото</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <link rel="stylesheet" href="check.css">
+</head>
+<body>
+    <div class="controls">
+        <div>
+            <input type="number" id="series" placeholder="Серия" min="1" max="9999" value="1">
+            <input type="text" id="ticketNumbers" placeholder="Номера билетов (через запятую)" value="1,2,3,4,5,6,7,8,9">
+            <button class="red" onclick="initializeGame()">Инициализировать игру</button>
+        </div>
+        <div>
+            <input type="number" id="newNumber" placeholder="Новый номер" min="1" max="90">
+            <button class="red" onclick="addNumber()">Добавить номер</button>
+            <button class="random" onclick="addRandomNumber()">Добавить случайное</button>
+            <button class="red" onclick="removeLastNumber()">Удалить последний</button>
+        </div>
+        <div class="drawn-numbers" id="drawnNumbers"></div>
+    </div>
+
+    <div class="sample-ticket" id="sampleTicket"></div>
+    <div class="winners" id="winners"></div>
+
+    <script src="common.js"></script>
+    <script src="check.js"></script>
+</body>
+</html>
