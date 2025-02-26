@@ -110,10 +110,12 @@ td {
     position: relative;
 }
 
-td:not(.marked):hover {
-    background: rgba(255, 152, 0, 0.2);
-    transform: scale(1.05);
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.7), inset 0 0 2px rgba(255, 152, 0, 0.5);
+@media (hover: hover) and (pointer: fine) {
+    td:not(.marked):hover {
+        background: rgba(255, 152, 0, 0.2);
+        transform: scale(1.05);
+        box-shadow: 0 0 8px rgba(255, 152, 0, 0.7), inset 0 0 2px rgba(255, 152, 0, 0.5);
+    }
 }
 
 @keyframes shine {
