@@ -4,170 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Лото</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
-
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .container {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    .left {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      grid-auto-rows: 10vh;
-      justify-items: center;
-      align-items: center;
-      padding: 20px 60px; /* 👉 большие отступы слева и справа */
-      background-color: #f4f4f4;
-      gap: 12px;
-      overflow: hidden;
-    }
-
-    .resizer {
-      width: 5px;
-      background: #bbb;
-      cursor: col-resize;
-    }
-
-    .right {
-      width: 240px;
-      min-width: 120px;
-      padding: 16px;
-      background-color: #e0e0e0;
-      border-left: 2px solid #ccc;
-    }
-
-    textarea {
-      width: 100%;
-      height: 100%;
-      resize: none;
-      font-size: 18px;
-      padding: 10px;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-    }
-
-    .barrel {
-      width: 8vh;
-      height: 8vh;
-      background: white;
-      border: 5px solid red;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 4vh;
-      font-weight: bold;
-      color: black;
-      box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.4);
-/*      opacity: 0;*/
-/*      transform: scale(0.5) rotate(-10deg);*/
-/*      animation: popIn 0.3s forwards;*/
-      transition: transform 0.2s ease, box-shadow 0.2s ease; /* Добавим плавную анимацию */
-  }
-
-  .barrel:hover {
-    transform: scale(1.1) rotate(0deg); /* Увеличиваем размер и убираем поворот */
-    box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.6); /* Увеличиваем тень */
-  }
-
-    @keyframes popIn {
-      to {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-      }
-    }
-  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+  <link rel="stylesheet" href="field.css">
 </head>
 <body>
   <div class="container" id="main-container">
     <div class="left" id="barrels-container"></div>
     <div class="resizer" id="resizer"></div>
     <div class="right">
-      <textarea id="number-input" placeholder="Введите число и нажмите ENTER..." autofocus></textarea>
+      <div class="right-top">
+        <h3>Билеты</h3>
+        <textarea id="ticketNumbers" placeholder="Введите номера билетов через запятую (например: 123, 456, 789)"></textarea>
+        <input type="number" id="series" placeholder="Серия (по умолч. 1)" min="1">
+        <button onclick="initializeGame()" class="init-btn">Инициализировать игру</button>
+        <div id="sampleTicket"></div>
+        <div id="winnerMessage" class="winner-message" style="display: none;"></div>
+      </div>
+      <div class="right-bottom">
+        <h3>Управление игрой</h3>
+        <div class="control-buttons">
+          <input type="number" id="newNumber" placeholder="Введите число (1-90)" min="1" max="90">
+          <button onclick="addNumber()" class="add-btn">Добавить число</button>
+          <button onclick="addRandomNumber()" class="random-btn">Случайное число</button>
+          <button onclick="removeLastNumber()" class="remove-btn">Удалить последнее</button>
+        </div>
+        <div id="winners"></div>
+      </div>
     </div>
   </div>
 
-  <script>
-    const input = document.getElementById('number-input');
-    const container = document.getElementById('barrels-container');
-    const page = document.getElementById('main-container');
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        updateBarrels();
-        // const lines = input.value.trim().split('\n');
-        // const lastLine = lines[lines.length - 1].trim();
-        // if (lastLine !== '' && !isNaN(lastLine)) {
-        //   addBarrel(lastLine);
-          input.value += '\n';
-        // }
-      }
-    });
-
-    page.addEventListener('click', () => {
-      input.focus();
-    });
-
-    function addBarrel(number) {
-      const el = document.createElement('div');
-      el.className = 'barrel';
-      el.textContent = number;
-      container.appendChild(el);
-    }
-
-    function updateBarrels() {
-      container.innerHTML = '';
-      const numbers = input.value.split('\n').filter(num => num.trim() !== '');
-      
-      numbers.forEach(num => {
-          const numValue = parseInt(num.trim());
-          if (!isNaN(numValue) && numValue >= 1 && numValue <= 90) {
-              const barrel = document.createElement('div');
-              barrel.className = 'barrel';
-              barrel.textContent = numValue;
-              container.appendChild(barrel);
-          }
-      });
-  }
-
-    // Перетаскивание границы
-    const resizer = document.getElementById('resizer');
-    const left = document.querySelector('.left');
-    const right = document.querySelector('.right');
-
-    resizer.addEventListener('mousedown', function(e) {
-      e.preventDefault();
-      document.addEventListener('mousemove', resize);
-      document.addEventListener('mouseup', stopResize);
-    });
-
-    function resize(e) {
-      const containerWidth = page.getBoundingClientRect().width;
-      const newRightWidth = containerWidth - e.clientX;
-      if (newRightWidth > 120 && newRightWidth < containerWidth - 100) {
-        right.style.width = newRightWidth + 'px';
-      }
-    }
-
-    function stopResize() {
-      document.removeEventListener('mousemove', resize);
-      document.removeEventListener('mouseup', stopResize);
-    }
-  </script>
+  <script src="field.js"></script>
 </body>
 </html>
