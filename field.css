@@ -1,0 +1,183 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.left {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-auto-rows: 10vh;
+  justify-items: center;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: #f4f4f4;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.resizer {
+  width: 5px;
+  background: #bbb;
+  cursor: col-resize;
+}
+
+.right {
+  width: 240px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  background-color: #e0e0e0;
+  border-left: 2px solid #ccc;
+}
+
+.right-top {
+  flex: 1;
+  padding: 16px;
+  border-bottom: 2px solid #ccc;
+  overflow-y: auto;
+}
+
+.right-bottom {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  font-size: 18px;
+  padding: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}
+
+.barrel {
+  width: 7vh;
+  height: 7vh;
+  background: white;
+  border: 5px solid red;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4vh;
+  font-weight: bold;
+  color: black;
+  box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.barrel:hover {
+  transform: scale(1.1) rotate(0deg);
+  box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.6);
+}
+
+.winner-message {
+  background-color: #ffeb3b;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.game-field {
+  margin-bottom: 20px;
+}
+
+.game-field table {
+  border-collapse: collapse;
+  margin: 5px 0;
+}
+
+.game-field td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #000;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+}
+
+.game-field td.marked {
+  background-color: #ffcdd2;
+}
+
+.tour-winner {
+  margin: 5px 0;
+  padding: 5px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.init-btn {
+  background: #4CAF50;
+  color: white;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  background: #2196F3;
+  color: white;
+}
+
+.random-btn {
+  background: #9C27B0;
+  color: white;
+}
+
+.remove-btn {
+  background: #f44336;
+  color: white;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
